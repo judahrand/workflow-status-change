@@ -1,0 +1,15 @@
+on: [push]
+
+jobs:
+  run-action:
+    runs-on: ubuntu-latest
+    name: Run Action
+    steps:
+      - name: Job status change
+        if: always()
+        id: job-status-change
+        uses: judahrand/job-status-change@master
+
+      - name: Output the job status change
+        if: ${{ steps.job-status-change.outputs.change == 'fixed' || steps.job-status-change.outputs.change == 'broken' }}
+        run: echo "The workflow was ${{ steps.job-status-change.outputs.change }}"

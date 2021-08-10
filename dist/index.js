@@ -6342,7 +6342,7 @@ async function run() {
 
         let runStatusChange = currentRunStatus;
         if (currentRunStatus === "failure") {
-            runStatusChange = "broken";
+            runStatusChange = "broke";
         } else if (currentRunStatus === "success" && previousRunStatus === "failure") {
             runStatusChange = "fixed";
         }

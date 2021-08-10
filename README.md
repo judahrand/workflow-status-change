@@ -16,7 +16,7 @@ This action determines if the status of the current workflow has changed since i
 
 ## `change`
 
-The status transition that has occurred. Possible outputs are: `"fixed", "broke", "success"`
+The status transition that has occurred. Possible outputs are: `"fixed", "broke", "success", "failure"`
 
 ## Example usage
 ```yaml

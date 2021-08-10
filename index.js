@@ -32,6 +32,7 @@ async function run() {
             repo: repo,
             workflow_id: currentRun.workflow_id,
             branch: currentRun.head_branch,
+            per_page: 2,  // Only need current and previous
         });
 
         console.debug("Extracting previous run")

@@ -19,5 +19,8 @@ This action determines if the job status of the current workflow has changed sin
 The job status transition that has occurred, if any. Possible outputs are: `"fixed", "broke", "success"`
 
 ## Example usage
-
-uses: actions/job-status-change@v1
+```yaml
+- name: Job status change
+  if: always()
+  uses: judahrand/job-status-change@master
+```

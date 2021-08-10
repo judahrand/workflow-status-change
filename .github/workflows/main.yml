@@ -1,9 +1,50 @@
 on: [push]
 
 jobs:
-  run-action:
+  ci:
+    name: Run CI
     runs-on: ubuntu-latest
-    name: Run Action
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Check that `dist/index.js` in sync with `index.js`
+        run: |
+          npm run prepare
+          git diff --exit-code -- dist/
+
+      - name: Lint
+        run: npm run lint
+
+  run-action:
+    name: Test action runs
+    runs-on: ubuntu-latest
+
     steps:
       - name: Job status change
         if: always()

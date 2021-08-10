@@ -50,10 +50,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Workflow status change
         if: always()
         id: workflow-status-change
-        uses: judahrand/workflow-status-change@master
+        uses: ./
 
       - name: Output the workflow status change
         if: ${{ steps.workflow-status-change.outputs.change == 'fixed' || steps.workflow-status-change.outputs.change == 'broken' }}

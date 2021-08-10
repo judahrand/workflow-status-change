@@ -1,17 +1,17 @@
-name: 'Job Status Change'
-description: Get the change in job status between this and previous run. {"broken"|"fixed"|"success"}
+name: 'Workflow Status Change'
+description: Get the change in workflow status between this and previous run. {"broken"|"fixed"|"success"}
 inputs:
   github-token:
     description: The GitHub token used to create an authenticated client.
     default: ${{ github.token }}
     required: true
-  current-job-status:
-    description: The status of the current GitHub Job.
+  current-status:
+    description: The status of the current GitHub Workflow.
     default: ${{ job.status }}
     required: true
 outputs:
   change:
-    description: The change in the job status between this run and the previous run.
+    description: The change in the workflow status between this run and the previous run.
 runs:
   using: 'node12'
   main: 'dist/index.js'

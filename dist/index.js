@@ -6289,7 +6289,7 @@ const github = __nccwpck_require__(438);
 async function run() {
     try {
         const token = core.getInput('github-token', {required: true});
-        const currentJobStatus = core.getInput('current-job-status', {required: true});
+        const currentRunStatus = core.getInput('current-status', {required: true});
 
         const owner = github.context.repo.owner;
         const repo = github.context.repo.repo;
@@ -6320,7 +6320,7 @@ async function run() {
         });
 
         console.debug("Extracting previous run")
-        let previousJobStatus = "unknown";
+        let previousRunStatus = "unknown";
         if ( workflowRunsData.total_count > 1 ){
             // 0 is ourselves in serial builds.
             const previousRun = workflowRunsData.workflow_runs[1];
@@ -6333,20 +6333,20 @@ async function run() {
             });
             // In general we want (completes, failure) or (completed, success)
             // anything else is useless here.
-            previousJobStatus = previousRun.conclusion || "unknown";
+            previousRunStatus = previousRun.conclusion || "unknown";
         }
 
-        console.log("PREVIOUS STATUS WAS", previousJobStatus);
-        console.log("CURRENT STATUS IS", currentJobStatus);
+        console.log("PREVIOUS STATUS WAS", previousRunStatus);
+        console.log("CURRENT STATUS IS", currentRunStatus);
 
-        let jobStatusChange = currentJobStatus;
-        if (currentJobStatus === "failure") {
-            jobStatusChange = "broken";
-        } else if (currentJobStatus === "success" && previousJobStatus === "failure") {
-            jobStatusChange = "fixed";
+        let runStatusChange = currentRunStatus;
+        if (currentRunStatus === "failure") {
+            runStatusChange = "broken";
+        } else if (currentRunStatus === "success" && previousRunStatus === "failure") {
+            runStatusChange = "fixed";
         }
-        console.log("JOB STATUS CHANGE IS", jobStatusChange);
-        core.setOutput("change", jobStatusChange);
+        console.log("WORKFLOW STATUS CHANGE IS", runStatusChange);
+        core.setOutput("change", runStatusChange);
     } catch (error) {
         core.setFailed(error.message);
     }

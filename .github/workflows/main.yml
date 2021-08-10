@@ -50,11 +50,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Job status change
+      - name: Workflow status change
         if: always()
-        id: job-status-change
-        uses: judahrand/job-status-change@master
+        id: workflow-status-change
+        uses: judahrand/workflow-status-change@master
 
-      - name: Output the job status change
-        if: ${{ steps.job-status-change.outputs.change == 'fixed' || steps.job-status-change.outputs.change == 'broken' }}
-        run: echo "The workflow was ${{ steps.job-status-change.outputs.change }}"
+      - name: Output the workflow status change
+        if: ${{ steps.workflow-status-change.outputs.change == 'fixed' || steps.workflow-status-change.outputs.change == 'broken' }}
+        run: echo "The workflow was ${{ steps.workflow-status-change.outputs.change }}"

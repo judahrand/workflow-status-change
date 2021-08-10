@@ -1,6 +1,6 @@
-# Job Status Change javascript action
+# Workflow Status Change javascript action
 
-This action determines if the job status of the current workflow has changed since its last run. This action should be run as the last (or penultimate if sending the result somewhere) step of a GitHub Job.
+This action determines if the status of the current workflow has changed since its last run. This action should be run as the last (or penultimate if sending the result somewhere) step of a GitHub Workflow.
 
 ## Inputs
 
@@ -8,19 +8,19 @@ This action determines if the job status of the current workflow has changed sin
 
 **Required** The token to use to authenicate with the GitHub API. Default `${{ github.token }}`.
 
-## `current-job-status`
+## `current-status`
 
-**Required** The status of the current GitHub Job. Default `${{ job.status }}`.
+**Required** The status of the current GitHub Workflow. Default `${{ job.status }}`.
 
 ## Outputs
 
 ## `change`
 
-The job status transition that has occurred, if any. Possible outputs are: `"fixed", "broke", "success"`
+The status transition that has occurred. Possible outputs are: `"fixed", "broke", "success"`
 
 ## Example usage
 ```yaml
-- name: Job status change
+- name: Workflow status change
   if: always()
-  uses: judahrand/job-status-change@master
+  uses: judahrand/workflow-status-change@master
 ```

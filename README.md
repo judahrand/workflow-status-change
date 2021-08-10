@@ -6,7 +6,7 @@ This action determines if the status of the current workflow has changed since i
 
 ## `github-token`
 
-**Required** The token to use to authenicate with the GitHub API. Default `${{ github.token }}`.
+**Required** The token to use to authenticate with the GitHub API. Default `${{ github.token }}`.
 
 ## `current-status`
 

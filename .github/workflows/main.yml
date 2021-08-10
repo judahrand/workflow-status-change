@@ -45,18 +45,7 @@ jobs:
       - name: Lint
         run: npm run lint
 
-  run-action:
-    name: Test action runs
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Workflow status change
+      - name: Check action runs
         if: always()
         id: workflow-status-change
         uses: ./
-
-      - name: Output the workflow status change
-        if: ${{ steps.workflow-status-change.outputs.change == 'fixed' || steps.workflow-status-change.outputs.change == 'broken' }}
-        run: echo "The workflow was ${{ steps.workflow-status-change.outputs.change }}"
